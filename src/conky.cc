@@ -2406,9 +2406,13 @@ static void main_loop(void)
 
 		switch (g_signal_pending) {
 			case SIGHUP:
-			case SIGUSR1:
-				NORM_ERR("received SIGHUP or SIGUSR1. reloading the config file.");
+				NORM_ERR("received SIGHUP. reloading the config file.");
 				reload_config();
+				break;
+			case SIGUSR1:
+				NORM_ERR("received SIGUSR1. redrawing.");
+				update_text();
+				draw_stuff();
 				break;
 			case SIGINT:
 			case SIGTERM:
